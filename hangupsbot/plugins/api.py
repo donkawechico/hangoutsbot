@@ -24,6 +24,8 @@ import plugins
 from sinks import aiohttp_start
 from sinks.base_bot_request_handler import AsyncRequestHandler
 
+from IPython import embed
+import ipdb
 
 logger = logging.getLogger(__name__)
 
@@ -126,7 +128,8 @@ class APIRequestHandler(AsyncRequestHandler):
 
     @asyncio.coroutine
     def process_request(self, path, query_string, content):
-        # XXX: bit hacky due to different routes...
+        # XXX: bit hacky due to different routes..  .
+        print("ASDFASDFASDF")
         payload = content
         if isinstance(payload, str):
             # XXX: POST - payload in incoming request BODY (and not yet parsed, do it here)
@@ -145,6 +148,7 @@ class APIRequestHandler(AsyncRequestHandler):
     @asyncio.coroutine
     def send_actionable_message(self, id, content):
         """reprocessor: allow message to be intepreted as a command"""
+        ipdb.set_trace()
         reprocessor_context = self._bot._handlers.attach_reprocessor( handle_as_command,
                                                                       return_as_dict=True )
         content = content + reprocessor_context["fragment"]
